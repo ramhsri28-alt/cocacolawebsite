@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Coca-Cola | Real Magic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+
+    /* Sticky Scroll Animation Section */
+    #animation-scroll-section {
+      position: relative;
+      width: 100%;
+      height: 450vh; /* Smooth, luxurious scroll length for 270 frames */
+      background-color: #050203;
+    }
+
+    #sticky-canvas-wrapper {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #050203;
+      z-index: 20;
+    }
+
+    #animation-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Subtle bottom gradient transition into the next light section */
+    .animation-fade-out {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent 0%, #f1f4f6 100%);
+      pointer-events: none;
+      z-index: 30;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-on-surface": "#eef1f3",
+            "surface-dim": "#d7dadc",
+            "on-secondary-container": "#5b6671",
+            "on-tertiary-container": "#f9fdff",
+            "on-primary-fixed": "#410000",
+            "on-secondary-fixed-variant": "#3d4852",
+            "on-error-container": "#93000a",
+            "on-surface-variant": "#5f3e3a",
+            "outline": "#956e68",
+            "tertiary-fixed": "#abedff",
+            "primary-fixed": "#ffdad5",
+            "secondary": "#55606a",
+            "background": "#f7fafc",
+            "inverse-primary": "#ffb4a9",
+            "secondary-container": "#d8e4f1",
+            "inverse-surface": "#2d3133",
+            "secondary-fixed": "#d8e4f1",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#bcc8d4",
+            "on-surface": "#181c1e",
+            "primary-fixed-dim": "#ffb4a9",
+            "surface-tint": "#c00005",
+            "primary-container": "#ea0008",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f1f4f6",
+            "surface-container": "#ebeef0",
+            "tertiary-container": "#008096",
+            "tertiary": "#006577",
+            "surface-bright": "#f7fafc",
+            "outline-variant": "#eabcb5",
+            "error": "#ba1a1a",
+            "on-tertiary": "#ffffff",
+            "surface": "#f7fafc",
+            "on-background": "#181c1e",
+            "on-secondary-fixed": "#121d26",
+            "on-primary-fixed-variant": "#930003",
+            "on-tertiary-fixed": "#001f26",
+            "surface-container-highest": "#e0e3e5",
+            "on-tertiary-fixed-variant": "#004e5c",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#fffbff",
+            "tertiary-fixed-dim": "#3bd8f8",
+            "surface-container-high": "#e5e9eb",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "surface-variant": "#e0e3e5",
+            "primary": "#bc0005"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-2xs": "0.25rem",
+            "space-3xl": "4.5rem",
+            "space-lg": "1.5rem",
+            "space-2xl": "3rem",
+            "margin-desktop": "4rem",
+            "space-sm": "0.75rem",
+            "margin-mobile": "1.25rem",
+            "space-4xl": "6rem",
+            "space-md": "1rem",
+            "space-xs": "0.5rem",
+            "margin-tablet": "2rem",
+            "gutter-mobile": "1rem",
+            "space-xl": "2rem",
+            "gutter-desktop": "2rem",
+            "gutter-tablet": "1.5rem"
+          },
+          "fontFamily": {
+            "title-md": ["DM Sans"],
+            "body-md": ["DM Sans"],
+            "headline-lg-mobile": ["Montserrat"],
+            "headline-lg": ["Montserrat"],
+            "body-sm": ["DM Sans"],
+            "label-md": ["DM Sans"],
+            "display-hero-mobile": ["Montserrat"],
+            "label-sm": ["DM Sans"],
+            "headline-xl-mobile": ["Montserrat"],
+            "headline-md": ["Montserrat"],
+            "display-hero": ["Montserrat"],
+            "headline-sm": ["Montserrat"],
+            "body-lg": ["DM Sans"],
+            "label-caps": ["Montserrat"],
+            "headline-xl": ["Montserrat"]
+          },
+          "fontSize": {
+            "title-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+            "headline-lg": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "display-hero-mobile": ["44px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["36px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-hero": ["80px", { "lineHeight": "84px", "letterSpacing": "-0.03em", "fontWeight": "900" }],
+            "headline-sm": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "800" }],
+            "headline-xl": ["56px", { "lineHeight": "60px", "letterSpacing": "-0.025em", "fontWeight": "800" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+
+  <!-- ================================================================= -->
+  <!-- 270-FRAME SCROLL-DRIVEN LIQUID ANIMATION (REPLACING HERO & NAVBAR) -->
+  <!-- ================================================================= -->
+  <div id="animation-scroll-section">
+    <div id="sticky-canvas-wrapper">
+      <canvas id="animation-canvas"></canvas>
+    </div>
+    <div class="animation-fade-out"></div>
+  </div>
+
+  <main class="w-full bg-background">
+    <div class="flex flex-col w-full">
+
+      <!-- ================================================================= -->
+      <!-- MODAL: Chill Story Video Overlay (Interactive)                    -->
+      <!-- ================================================================= -->
+      <div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-on-surface/80 backdrop-blur-md p-4" id="chill-story-modal">
+        <div class="relative w-full max-w-3xl bg-surface-container-lowest rounded-2xl p-space-lg shadow-2xl flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-space-xs">
+              <span class="material-symbols-outlined text-primary text-[28px]">movie</span>
+              <span class="font-headline-sm text-headline-sm text-on-surface">The Anatomy of a Cold Snap</span>
+            </div>
+            <button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors" onclick="document.getElementById('chill-story-modal').classList.add('hidden')" type="button">
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+          </div>
+          <div class="relative w-full aspect-video rounded-xl bg-surface-container-high overflow-hidden flex items-center justify-center group cursor-pointer">
+            <div class="bg-cover bg-center absolute inset-0 opacity-85" data-alt="Cinematic macro shot of effervescent Coca-Cola pouring over translucent ice cubes with fine bubbles rising against a dark crimson studio background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOUbQjKUU3rpogLOaNjZTfzrFx5QAd4QOKC443f4bFgvi4Hyz4IcmhOFof__v3OiIYVy_UkjOQwMFOGCVdPVpEZc7kcsMSohu0Xq_Mxo-Q40fT-5hsejaPmJauS5qkZQSGeicgKnRClD5FCCdwP8evhKqyLE99Wuj4_B36UOWnj5LRv0lUjEIxBm_MPXZvNk5injicE8YAPL7YVjw1JDeIZwx3FHlyBhvrh1RKRZ6_st9EAoYapuMl')"></div>
+            <div class="relative z-10 w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </div>
+          </div>
+          <p class="font-body-md text-body-md text-secondary">
+            Witness how cryogenic chilling preserves the aromatic oils, locks in fine gas retention, and yields that unforgettable initial tactile throat hit.
+          </p>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 2: The Sub-Zero Sensory Experience (Interactive Grid)     -->
+      <!-- ================================================================= -->
+      <section class="w-full bg-surface-container-low py-space-3xl">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-2xl">
+            <div class="max-w-xl">
+              <span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">The Science of Frost</span>
+              <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Why Cold Hits Different</h2>
+            </div>
+            <p class="font-body-md text-body-md text-secondary max-w-md">
+              Carbon dioxide binds at maximum density between 2°C and 4°C, releasing sensory-heightening micro-bubbles that amplify sweetness and herbal aromatics.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop">
+            <!-- Sensory Card 1 -->
+            <div class="group relative p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between overflow-hidden">
+              <div class="absolute -top-10 -right-10 w-32 h-32 bg-tertiary-fixed/30 rounded-full blur-2xl group-hover:bg-tertiary-fixed/60 transition-colors"></div>
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-tertiary mb-space-md">
+                  <span class="material-symbols-outlined text-[28px]">bubble_chart</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary uppercase">01 / Pressurization</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mt-1 mb-space-xs">Micro-Bubbles &amp; Crisp Bite</h3>
+                <p class="font-body-md text-body-md text-secondary">
+                  Precision-tuned carbonation that dances on the tongue without overpowering palate sensitivity, calibrated to 3.7 volumes of gas.
+                </p>
+              </div>
+              <div class="mt-space-lg pt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface font-semibold">Effervescence Index</span>
+                <div class="flex items-center gap-1">
+                  <span class="w-2 h-4 rounded-full bg-primary"></span>
+                  <span class="w-2 h-4 rounded-full bg-primary"></span>
+                  <span class="w-2 h-4 rounded-full bg-primary"></span>
+                  <span class="w-2 h-4 rounded-full bg-primary"></span>
+                  <span class="w-2 h-4 rounded-full bg-surface-container-highest"></span>
+                </div>
+              </div>
+            </div>
+            <!-- Sensory Card 2 -->
+            <div class="group relative p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between overflow-hidden">
+              <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/25 transition-colors"></div>
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-space-md">
+                  <span class="material-symbols-outlined text-[28px]">water_drop</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary uppercase">02 / Thermal Kinetics</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mt-1 mb-space-xs">Sub-Zero Serving Ritual</h3>
+                <p class="font-body-md text-body-md text-secondary">
+                  Condensation droplets form on contact with warm ambient air, signaling the exact threshold when botanical balance reaches its peak.
+                </p>
+              </div>
+              <div class="mt-space-lg pt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface font-semibold">Frost Adherence</span>
+                <span class="font-label-sm text-label-sm text-primary font-bold">100% Crystalline</span>
+              </div>
+            </div>
+            <!-- Sensory Card 3 -->
+            <div class="group relative p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between overflow-hidden">
+              <div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary-container/40 rounded-full blur-2xl group-hover:bg-secondary-container/80 transition-colors"></div>
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-on-surface mb-space-md">
+                  <span class="material-symbols-outlined text-[28px]">electric_bolt</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary uppercase">03 / Dopamine Release</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mt-1 mb-space-xs">Timeless Sensory Uplift</h3>
+                <p class="font-body-md text-body-md text-secondary">
+                  The unmistakable rush sparked by kola nut notes, warm vanilla undertones, and citrus zest, engineered to evoke spontaneous joy.
+                </p>
+              </div>
+              <div class="mt-space-lg pt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface font-semibold">Euphoria Metric</span>
+                <span class="font-label-sm text-label-sm text-tertiary font-bold">Peak Sensory</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 3: Product Lineup & Signature Variants                    -->
+      <!-- ================================================================= -->
+      <section class="w-full bg-background py-space-3xl" id="product-showcase">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop">
+          <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-space-md mb-space-2xl">
+            <div>
+              <span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Iconic Refreshment</span>
+              <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">The Chilled Lineup</h2>
+            </div>
+            <!-- Flavor Filter Tabs -->
+            <div class="flex items-center gap-2 p-1.5 rounded-full bg-surface-container">
+              <button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all" type="button">All Variants</button>
+              <button class="px-5 py-2 rounded-full text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-colors" type="button">Zero Sugar</button>
+              <button class="px-5 py-2 rounded-full text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-colors" type="button">Infusions</button>
+            </div>
+          </div>
+          <!-- Product Bento Mosaic -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-desktop">
+            <!-- Product 1: Classic Original -->
+            <div class="relative flex flex-col justify-between p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl transition-all group">
+              <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold shadow-sm">ORIGINAL</div>
+              <div class="w-full h-56 rounded-xl bg-surface-container-low flex items-center justify-center relative overflow-hidden mb-space-md">
+                <img class="h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Glossy aluminum Coca-Cola Original can standing tall with thick icy condensation droplets sliding down its signature crimson surface, isolated on clean light studio backdrop with soft reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8zs9rMZvw9Z9fiQ3XYJSvJKZ-GCbCvhSzjkU9faqlN5EV1E0bydtaLInnd-XY87PHuBjMHOC2nmWkO7D4JM4EhOlWTcIZvTofdD5Yoq3U0lxGwzWb6iIwSdqqjg_p_piD6GeIUtVDUgs1ZZ9SycOktbjII0L5b94febaParYJPwBcVU_b14r_SqHe5hEDfhe-FzQspKh3GX_XaOrqoGcHYupPfRanEh4L1qFXipcBAB1fE-ayY0ER"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Coca-Cola Original</h3>
+                  <span class="font-body-sm text-body-sm text-secondary font-bold">140 kcal</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-secondary">The legendary secret recipe. Sparkling, crisp, and delightfully timeless.</p>
+              </div>
+              <div class="pt-space-md mt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">330ml Can • 500ml Bottle</span>
+                <button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary transition-all" type="button">
+                  <span class="material-symbols-outlined text-[20px]">add</span>
+                </button>
+              </div>
+            </div>
+            <!-- Product 2: Zero Sugar -->
+            <div class="relative flex flex-col justify-between p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl transition-all group">
+              <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-on-surface text-background font-label-sm text-label-sm font-bold shadow-sm">ZERO SUGAR</div>
+              <div class="w-full h-56 rounded-xl bg-surface-container-low flex items-center justify-center relative overflow-hidden mb-space-md">
+                <img class="h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Coca-Cola Zero Sugar matte black and red trimmed aluminum can covered in chilled water droplets and frost, resting on a reflective frosted surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhoTjgbeVkj5asCADKMx3cDXCOQYsW-BomsmGJhedaHQxqKhu-z8GmoaVetoHr91Fv4LdQnMKqyz6MRCPiqwGn0vkE7UZhqGeznuU5W8SUPnzjO8-wDfSjGXRCe6Ig6fIlWfk_zeo4l5dZssp1Dxapx-pzpSmGAK3VXLiJcG6OkC4INMrpGkggG5I_lR0OPYZCx54fg3b5RWDOtkWgQFyGBx9u_wou1J9qHvNJeMuO_yMleljWZvAf"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Coca-Cola Zero</h3>
+                  <span class="font-body-sm text-body-sm text-tertiary font-bold">0 kcal</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-secondary">Real Coca-Cola taste with zero calories and zero sugar. Pure satisfaction.</p>
+              </div>
+              <div class="pt-space-md mt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">330ml Can • 1.25L Bottle</span>
+                <button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary transition-all" type="button">
+                  <span class="material-symbols-outlined text-[20px]">add</span>
+                </button>
+              </div>
+            </div>
+            <!-- Product 3: Cherry -->
+            <div class="relative flex flex-col justify-between p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl transition-all group">
+              <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-bold shadow-sm">CHERRY</div>
+              <div class="w-full h-56 rounded-xl bg-surface-container-low flex items-center justify-center relative overflow-hidden mb-space-md">
+                <img class="h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Coca-Cola Cherry can featuring deep purple-tinted crimson gradient with frosted glaze and icy condensation beads, bright crisp beverage commercial photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeMQmHOtbREKZMOv4OY9dETBlC9U6_KPY-o0me43atmm5APv-Z9JHBp-inYTg4808VKrpn0EUiaak7ZaMaI99JWRu8IEm30MNk4qncmHu9uW-JaiW4Wbu_eoenXt8dG-xLFDgPPk0GKPz1rSwH5ofP7I13dNRj24-OdzpNAyO1WanUI5V5-940a3foiuz2_lcAfC6AZ15GmwG2u9Y6kjnZLY5MMozSXTIevRly5CYjX5EnPBOVidTf"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Coca-Cola Cherry</h3>
+                  <span class="font-body-sm text-body-sm text-secondary font-bold">150 kcal</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-secondary">Luscious burst of dark wild cherry blended into signature effervescence.</p>
+              </div>
+              <div class="pt-space-md mt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">330ml Can • 12-Pack</span>
+                <button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary transition-all" type="button">
+                  <span class="material-symbols-outlined text-[20px]">add</span>
+                </button>
+              </div>
+            </div>
+            <!-- Product 4: Vanilla -->
+            <div class="relative flex flex-col justify-between p-space-lg rounded-2xl bg-surface-container-lowest shadow-md hover:shadow-xl transition-all group">
+              <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-bold shadow-sm">VANILLA</div>
+              <div class="w-full h-56 rounded-xl bg-surface-container-low flex items-center justify-center relative overflow-hidden mb-space-md">
+                <img class="h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Coca-Cola Vanilla aluminum can displaying soft warm golden-cream accents along iconic red, misted with fine ice frost, placed in a bright clean setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ_F9SqsBIDXPEZVXveYvVBZFd-WB1EHpHIajoG8Vinlaq3TFGViPf8s73p5-1dy82Sdaj2hiO4bxNJKWX53WDc6QIC29g13gn3p2x2jNHYlge7TvBf8BDGdlp3mad912sRrTyj8phqfZNH9vC33lfwUjy75lY0KTThLiLcyElmXtOhhfsGqIFn-wLiEOJ40BlBEB2OnYI4ZgOgQiaOfjmxoOeIKwKbUdamf40XUovTOQ5BI3RFNCo"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Coca-Cola Vanilla</h3>
+                  <span class="font-body-sm text-body-sm text-secondary font-bold">150 kcal</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-secondary">Velvety Madagascar vanilla aroma paired with crisp uplifting carbonation.</p>
+              </div>
+              <div class="pt-space-md mt-space-md flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">330ml Can • 500ml Bottle</span>
+                <button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary transition-all" type="button">
+                  <span class="material-symbols-outlined text-[20px]">add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 4: Chill & Mixology / Moments of Uplift                   -->
+      <!-- ================================================================= -->
+      <section class="w-full bg-surface-container-low py-space-3xl">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-center">
+            <!-- Ritual Showcase Card -->
+            <div class="lg:col-span-7 flex flex-col gap-space-lg">
+              <div>
+                <span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">The Pour Masterclass</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">The 37°F / 3°C Perfect Pour Ritual</h2>
+                <p class="font-body-lg text-body-lg text-secondary mt-space-xs">
+                  Savor the full symphonic bouquet. Our master beverage sommeliers recommend the 45-degree angle glass tilt over crystal-clear crushed ice.
+                </p>
+              </div>
+              <!-- Ritual Steps -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+                <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2">
+                  <span class="font-headline-sm text-headline-sm text-primary">01</span>
+                  <span class="font-headline-sm text-title-md text-on-surface">Chill the Glass</span>
+                  <span class="font-body-sm text-body-sm text-secondary">Keep highball contour glass in the freezer for 10 minutes prior to pouring.</span>
+                </div>
+                <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2">
+                  <span class="font-headline-sm text-headline-sm text-primary">02</span>
+                  <span class="font-headline-sm text-title-md text-on-surface">Crushed Glacial Ice</span>
+                  <span class="font-body-sm text-body-sm text-secondary">Fill glass 2/3 with high-density clear ice cubes to avoid fast dilution.</span>
+                </div>
+                <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2">
+                  <span class="font-headline-sm text-headline-sm text-primary">03</span>
+                  <span class="font-headline-sm text-title-md text-on-surface">The 45° Glide</span>
+                  <span class="font-body-sm text-body-sm text-secondary">Tilt glass to preserve the pressurized crown, finish with a fresh lemon twist.</span>
+                </div>
+              </div>
+              <!-- Moments Uplift Chips -->
+              <div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+                <span class="font-label-md text-label-md text-on-surface font-semibold">Perfect Pairings:</span>
+                <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Wood-fired Pizza</span>
+                <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Stadium Game Day</span>
+                <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Sunset Beach BBQ</span>
+                <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Late Night Cinema</span>
+              </div>
+            </div>
+            <!-- Right Visual: Cinematic Lifestyle Pour -->
+            <div class="lg:col-span-5 relative">
+              <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                <div class="w-full h-[460px] bg-cover bg-center" data-alt="High-end editorial photograph of dark sparkling Coca-Cola being poured into an elegant condensation-covered glass filled with crystal clear ice cubes and a slice of lime, sun-drenched outdoor patio table setting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBabxaiJEcM1kGYcE2xCMKzgGanLWJe7YqqauPQbA9kFjEkV9KDRvwqnglxJoETrXsXkRK_Wc5XDttBMJBjXVbgDeLDb_KG7IA-ouJmZBEs2mzxyBVmkAbvuzC3T1vYdgWJ8i3SfxBYj825kDjRWKNmudMrvlj2REspxRH3S17NnAjytJrnWxRB2dfd9GQo4BGslZsXK5KkGI80mQ4Xcs09mkA3aKNa7GXqF5ZP7VnLU1E_iPWgghmE')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex flex-col justify-end p-space-lg text-on-primary">
+                  <span class="font-label-caps text-label-caps text-tertiary-fixed tracking-widest uppercase">Sensory Note</span>
+                  <span class="font-headline-sm text-headline-sm">"The hiss of the pop, the roar of the chill."</span>
+                  <span class="font-body-sm text-body-sm text-surface-dim mt-1">Shared by millions across 200+ countries daily.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 5: Sustainability & World Without Waste                  -->
+      <!-- ================================================================= -->
+      <section class="w-full bg-surface-container-highest/60 py-space-3xl relative overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop">
+          <div class="max-w-2xl mb-space-2xl">
+            <span class="font-label-caps text-label-caps text-tertiary tracking-widest uppercase">World Without Waste</span>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Refresh the World. Make a Difference.</h2>
+            <p class="font-body-lg text-body-lg text-secondary mt-space-xs">
+              True refreshment must be sustainable. We are redesigning our packaging ecosystem to ensure every bottle and can has a purpose, a loop, and a future.
+            </p>
+          </div>
+          <!-- Eco Impact Metrics -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop">
+            <!-- Eco Card 1 -->
+            <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center mb-space-md">
+                  <span class="material-symbols-outlined text-[28px]">autorenew</span>
+                </div>
+                <div class="font-headline-xl text-headline-xl text-on-surface font-black">100%</div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Recycled PET Commitment</h3>
+                <p class="font-body-md text-body-md text-secondary mt-2">
+                  Scaling our transition toward 100% recycled plastic across consumer bottles, reducing virgin resin consumption by thousands of metric tons.
+                </p>
+              </div>
+              <div class="mt-space-lg">
+                <div class="flex justify-between font-label-sm text-label-sm text-secondary mb-1">
+                  <span>Progress towards 2030 goal</span>
+                  <span class="font-bold text-on-surface">68%</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-surface-container">
+                  <div class="h-2 rounded-full bg-tertiary w-[68%]"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Eco Card 2 -->
+            <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center mb-space-md">
+                  <span class="material-symbols-outlined text-[28px]">water_full</span>
+                </div>
+                <div class="font-headline-xl text-headline-xl text-on-surface font-black">175%+</div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Water Replenished</h3>
+                <p class="font-body-md text-body-md text-secondary mt-2">
+                  Replenishing more water than we use in our finished beverages back to nature and local communities through strategic watershed programs.
+                </p>
+              </div>
+              <div class="mt-space-lg">
+                <div class="flex justify-between font-label-sm text-label-sm text-secondary mb-1">
+                  <span>Global target achieved</span>
+                  <span class="font-bold text-on-surface">Certified Net Positive</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-surface-container">
+                  <div class="h-2 rounded-full bg-tertiary w-full"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Eco Card 3 -->
+            <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-md flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-space-md">
+                  <span class="material-symbols-outlined text-[28px]">delete_sweep</span>
+                </div>
+                <div class="font-headline-xl text-headline-xl text-on-surface font-black">1 for 1</div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mt-1">Collection Guarantee</h3>
+                <p class="font-body-md text-body-md text-secondary mt-2">
+                  Pledging to help collect and recycle a bottle or can for every single one we sell globally by 2030, closing the circular packaging loop.
+                </p>
+              </div>
+              <div class="mt-space-lg">
+                <div class="flex justify-between font-label-sm text-label-sm text-secondary mb-1">
+                  <span>Collection rate</span>
+                  <span class="font-bold text-on-surface">61% Global Avg</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-surface-container">
+                  <div class="h-2 rounded-full bg-primary w-[61%]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 6: Cooler / Store Locator & Delivery Integration         -->
+      <!-- ================================================================= -->
+      <section class="w-full bg-background py-space-3xl">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop">
+          <div class="rounded-3xl bg-surface-container-lowest p-space-xl lg:p-space-2xl shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-center">
+              <div class="lg:col-span-6 flex flex-col gap-space-md">
+                <span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Crave the Chill?</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Find an Ice-Cold Coke Near You</h2>
+                <p class="font-body-md text-body-md text-secondary">
+                  Whether you need an instant sub-zero thirst quencher from a convenience cooler or grocery delivery right to your doorstep, we've got you covered.
+                </p>
+                <!-- Search Bar Input -->
+                <form class="flex flex-col sm:flex-row items-center gap-space-xs w-full max-w-lg mt-space-xs" onsubmit="event.preventDefault(); document.getElementById('search-result-msg').classList.remove('hidden');">
+                  <div class="relative w-full">
+                    <span class="material-symbols-outlined absolute left-4 top-3 text-secondary text-[20px]">location_on</span>
+                    <input class="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container text-on-surface font-body-md text-body-md placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" placeholder="Enter Zip Code or City (e.g. 90210, New York)" required="" type="text"/>
+                  </div>
+                  <button class="w-full sm:w-auto px-8 py-3 rounded-full bg-primary text-on-primary font-headline-sm text-title-md hover:scale-105 active:scale-95 transition-all shadow-md shrink-0" type="submit">
+                    Locate
+                  </button>
+                </form>
+                <div class="hidden p-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm flex items-center gap-2" id="search-result-msg">
+                  <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                  <span>Found 14 sub-zero refrigerated retail coolers within 2 miles of your location!</span>
+                </div>
+                <!-- Instant Delivery Partner Links -->
+                <div class="pt-space-md">
+                  <span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider block mb-space-xs">Instant 30-Minute Chill Delivery</span>
+                  <div class="flex flex-wrap items-center gap-space-sm">
+                    <a class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors font-label-md text-label-md text-on-surface flex items-center gap-2 shadow-sm" href="#">
+                      <span class="material-symbols-outlined text-[18px] text-primary">moped</span>
+                      <span>DoorDash</span>
+                    </a>
+                    <a class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors font-label-md text-label-md text-on-surface flex items-center gap-2 shadow-sm" href="#">
+                      <span class="material-symbols-outlined text-[18px] text-tertiary">local_mall</span>
+                      <span>UberEats</span>
+                    </a>
+                    <a class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors font-label-md text-label-md text-on-surface flex items-center gap-2 shadow-sm" href="#">
+                      <span class="material-symbols-outlined text-[18px] text-on-surface">shopping_cart</span>
+                      <span>Instacart</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Interactive Map Container -->
+              <div class="lg:col-span-6">
+                <div class="w-full h-80 rounded-2xl overflow-hidden shadow-md relative">
+                  <div class="w-full h-full bg-cover bg-center rounded-2xl" data-location="Atlanta, Georgia" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoEy9x5rXZVMngV3CgILmQ7DC7FnGYS3-sC78S-DItim402BQZjJKPhofA08AJnGrer4xmdb7OU_kXEAUi9XfsFFQnfgA8bSB1IpE9h9f7TsS8k3IBfZgLCtk-2Oa_mnbCC0d9kFhW5DXUOoXOGOO6BApRO0XSr5OMhQDd6miu-E9Ks-45qbc6w9FNqf9bEYHuSvPSEwRmBNjgDb0HeLLlWn9hMFckt6tFrqKPoclx_UfQUbXcMwll')"></div>
+                  <div class="absolute top-4 left-4 p-3 rounded-xl bg-surface-container-lowest/90 backdrop-blur-md shadow-md flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-primary animate-pulse"></span>
+                    <span class="font-label-sm text-label-sm text-on-surface font-bold">LIVE COOLER RADAR</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="w-full bg-surface-container-low text-on-surface-variant py-space-3xl">
+    <div class="max-w-[1440px] mx-auto px-margin-desktop">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-gutter-desktop mb-space-2xl">
+        <div class="lg:col-span-2 flex flex-col gap-space-md">
+          <div class="flex items-center gap-space-xs">
+            <span class="font-headline-sm text-headline-sm text-primary tracking-tight font-black">Coca-Cola</span>
+          </div>
+          <p class="font-body-md text-body-md text-secondary max-w-md">
+            Crafting uplifting refreshment, pure carbonated optimism, and cold sensory experiences across the globe. Committed to a World Without Waste through circular innovation and sustainable community stewardship.
+          </p>
+          <div class="flex items-center gap-space-sm">
+            <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[20px]">share</span>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[20px]">public</span>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[20px]">chat</span>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[20px]">campaign</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-space-sm">
+          <span class="font-headline-sm text-headline-sm text-on-surface">Beverage Family</span>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="products-and-flavors" href="#">Coca-Cola Original</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="products-and-flavors" href="#">Coca-Cola Zero Sugar</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="products-and-flavors" href="#">Diet Coke</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="products-and-flavors" href="#">Flavors &amp; Infusions</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="the-chill-experience" href="#">Signature Creations</a>
+        </div>
+        <div class="flex flex-col gap-space-sm">
+          <span class="font-headline-sm text-headline-sm text-on-surface">Transparency</span>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="products-and-flavors" href="#">Nutritional Integrity</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="products-and-flavors" href="#">Ingredient Sourcing</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="sustainability-and-world-without-waste" href="#">Bottle-to-Bottle Lifecycle</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="sustainability-and-world-without-waste" href="#">Water Replenishment</a>
+          <a class="font-body-md text-body-md hover:text-primary transition-colors" data-path="store-locator" href="#">Authorized Retailers</a>
+        </div>
+        <div class="flex flex-col gap-space-sm">
+          <span class="font-headline-sm text-headline-sm text-on-surface">Ice-Cold Updates</span>
+          <p class="font-body-sm text-body-sm text-secondary">Receive news on exclusive flavor drops, cold innovation, and local eco initiatives.</p>
+          <div class="flex flex-col gap-space-xs">
+            <input class="w-full px-4 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your email" type="email"/>
+            <button class="w-full py-2.5 rounded-full bg-primary text-on-primary font-headline-sm text-label-md hover:scale-102 transition-all flex items-center justify-center gap-space-2xs" type="button">
+              <span>Subscribe</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pt-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md bg-surface-container-high/40 rounded-xl px-space-md">
+        <span class="font-body-sm text-body-sm text-secondary">© 2026 The Coca-Cola Company. All rights reserved. Ice-cold refreshment delivered responsibly.</span>
+        <div class="flex items-center gap-space-lg">
+          <a class="font-body-sm text-body-sm text-secondary hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+          <a class="font-body-sm text-body-sm text-secondary hover:text-on-surface transition-colors" href="#">Terms of Use</a>
+          <a class="font-body-sm text-body-sm text-secondary hover:text-on-surface transition-colors" href="#">Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
