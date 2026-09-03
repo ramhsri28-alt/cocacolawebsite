@@ -1,0 +1,19 @@
+{
+  "name": "cocacola-website-animation",
+  "version": "1.0.0",
+  "description": "Interactive 270-frame Coca-Cola liquid splash scroll animation website",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "coca-cola",
+    "animation",
+    "scroll-animation",
+    "canvas",
+    "vercel"
+  ],
+  "author": "",
+  "license": "MIT"
+}
